@@ -1,0 +1,41 @@
+def performOperations(N, op):
+    # Write your code here
+    result = list(range(M))
+    result[0] =  ((N * (N + 1)) // 2)
+    first_element = 1
+    last_element = N
+    #array = list(range(1,N+1))
+    for j in range(M):
+        if (op[j] == first_element) or (op[j] == last_element) or (2<= op[j] <= N-1):
+            first_element, last_element=last_element, first_element
+            # op is found in array
+            #swap first_element and last_element # Here only swapping is required. Hence, no change in result
+        else :
+            #N == op[j]
+            # op is not found
+            result[j] = result[j] - last_element + op[j]
+            last_element = op[j]# Here we need to replace the last element. Hence, result is changing.
+        if j + 1 < M:
+            result[j + 1] = result[j]
+    return result
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    first_multiple_input = input().rstrip().split()
+
+    N = int(first_multiple_input[0])
+
+    M = int(first_multiple_input[1])
+
+    op = []
+
+    for _ in range(M):
+        op_item = int(input().strip())
+        op.append(op_item)
+
+    result = performOperations(N, op)
+
+    fptr.write('\n'.join(map(str, result)))
+    fptr.write('\n')
+
+    fptr.close()
